@@ -1,23 +1,46 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { CalendarIcon, Check, Clock, FileUp, GraduationCap, X } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { format } from "date-fns"
-import { cn } from "@/lib/utils"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import {
+  CalendarIcon,
+  Check,
+  Clock,
+  FileUp,
+  GraduationCap,
+  X,
+} from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 export default function IssuerDashboard() {
-  const [date, setDate] = useState<Date>()
+  const [date, setDate] = useState<Date>();
   const [issuedDiplomas, setIssuedDiplomas] = useState([
     {
       id: "1",
@@ -49,10 +72,10 @@ export default function IssuerDashboard() {
       status: "failed",
       txHash: "",
     },
-  ])
+  ]);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Simulate adding a new diploma
     const newDiploma = {
       id: (issuedDiplomas.length + 1).toString(),
@@ -63,15 +86,17 @@ export default function IssuerDashboard() {
       walletAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
       status: "pending",
       txHash: "",
-    }
-    setIssuedDiplomas([newDiploma, ...issuedDiplomas])
-  }
+    };
+    setIssuedDiplomas([newDiploma, ...issuedDiplomas]);
+  };
 
   return (
     <div className="container py-6 md:py-10">
       <div className="mb-6">
         <h1 className="text-3xl font-bold">Issuer Dashboard</h1>
-        <p className="text-muted-foreground">Issue and manage blockchain diplomas</p>
+        <p className="text-muted-foreground">
+          Issue and manage blockchain diplomas
+        </p>
       </div>
 
       <Tabs defaultValue="issue">
@@ -84,7 +109,9 @@ export default function IssuerDashboard() {
           <Card>
             <CardHeader>
               <CardTitle>Issue New Diploma</CardTitle>
-              <CardDescription>Fill in the details to mint a new diploma NFT for a student</CardDescription>
+              <CardDescription>
+                Fill in the details to mint a new diploma NFT for a student
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -102,7 +129,11 @@ export default function IssuerDashboard() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="degreeProgram">Degree Program</Label>
-                    <Input id="degreeProgram" placeholder="e.g. Computer Science" required />
+                    <Input
+                      id="degreeProgram"
+                      placeholder="e.g. Computer Science"
+                      required
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="degreeType">Degree Type</Label>
@@ -128,26 +159,42 @@ export default function IssuerDashboard() {
                       <PopoverTrigger asChild>
                         <Button
                           variant={"outline"}
-                          className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !date && "text-muted-foreground"
+                          )}
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
                           {date ? format(date, "PPP") : "Select date"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                        <Calendar
+                          mode="single"
+                          selected={date}
+                          onSelect={setDate}
+                          initialFocus
+                        />
                       </PopoverContent>
                     </Popover>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="certificateImage">Certificate Image (Optional)</Label>
+                    <Label htmlFor="certificateImage">
+                      Certificate Image (Optional)
+                    </Label>
                     <div className="flex items-center gap-2">
-                      <Input id="certificateImage" type="file" className="cursor-pointer" />
+                      <Input
+                        id="certificateImage"
+                        type="file"
+                        className="cursor-pointer"
+                      />
                       <Button type="button" size="sm" variant="outline">
                         <FileUp className="h-4 w-4" />
                       </Button>
                     </div>
-                    <p className="text-xs text-muted-foreground">Image will be stored on IPFS</p>
+                    <p className="text-xs text-muted-foreground">
+                      Image will be stored on IPFS
+                    </p>
                   </div>
                 </div>
 
@@ -164,7 +211,9 @@ export default function IssuerDashboard() {
           <Card>
             <CardHeader>
               <CardTitle>Issued Diplomas</CardTitle>
-              <CardDescription>View and manage all diplomas issued through VeriGrad</CardDescription>
+              <CardDescription>
+                View and manage all diplomas issued through VeriGrad
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="rounded-md border">
@@ -177,12 +226,19 @@ export default function IssuerDashboard() {
                 </div>
                 <div className="divide-y">
                   {issuedDiplomas.map((diploma) => (
-                    <div key={diploma.id} className="grid grid-cols-12 items-center p-4">
-                      <div className="col-span-3 font-medium">{diploma.studentName}</div>
+                    <div
+                      key={diploma.id}
+                      className="grid grid-cols-12 items-center p-4"
+                    >
+                      <div className="col-span-3 font-medium">
+                        {diploma.studentName}
+                      </div>
                       <div className="col-span-3">
                         {diploma.degreeType} in {diploma.degreeProgram}
                       </div>
-                      <div className="col-span-3 text-sm text-muted-foreground truncate">{diploma.walletAddress}</div>
+                      <div className="col-span-3 text-sm text-muted-foreground truncate">
+                        {diploma.walletAddress}
+                      </div>
                       <div className="col-span-2">
                         {diploma.status === "success" && (
                           <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
@@ -190,7 +246,10 @@ export default function IssuerDashboard() {
                           </Badge>
                         )}
                         {diploma.status === "pending" && (
-                          <Badge variant="outline" className="border-amber-500 text-amber-500">
+                          <Badge
+                            variant="outline"
+                            className="border-amber-500 text-amber-500"
+                          >
                             <Clock className="mr-1 h-3 w-3" /> Pending
                           </Badge>
                         )}
@@ -201,7 +260,11 @@ export default function IssuerDashboard() {
                         )}
                       </div>
                       <div className="col-span-1 text-right">
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0"
+                        >
                           <span className="sr-only">View details</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -227,5 +290,5 @@ export default function IssuerDashboard() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
