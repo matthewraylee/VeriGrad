@@ -1,5 +1,3 @@
-[toolchain]
-
 [features]
 seeds = false
 skip-lint = false
@@ -7,11 +5,14 @@ skip-lint = false
 [programs.localnet]
 verigrad = "3TWd8F2kC9NoDPteeRibPLWXYTBEyFxgPxCbxHybk8VS"
 
+[programs.devnet]
+verigrad = "BstGvvP7WHFodit1KdrzkyEoqQRyT5LfRzKxL6wmw6N6"
+
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"  # Changed from "Localnet" to "devnet"
 wallet = "/Users/mrlee/.config/solana/id.json"
 
 [scripts]

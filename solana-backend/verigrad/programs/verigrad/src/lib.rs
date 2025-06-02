@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkgf3zFzEo3cA");
+declare_id!("BstGvvP7WHFodit1KdrzkyEoqQRyT5LfRzKxL6wmw6N6");
 
 #[program]
 pub mod verigrad {

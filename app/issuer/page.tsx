@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,36 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import {
-  CalendarIcon,
-  Check,
-  Clock,
-  FileUp,
-  GraduationCap,
-  X,
-} from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+import { Check, Clock, X } from "lucide-react";
+import IssueDiplomaForm from "@/components/IssueDiplomaForm";
 
 export default function IssuerDashboard() {
-  const [date, setDate] = useState<Date>();
   const [issuedDiplomas, setIssuedDiplomas] = useState([
     {
       id: "1",
@@ -74,22 +49,6 @@ export default function IssuerDashboard() {
     },
   ]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Simulate adding a new diploma
-    const newDiploma = {
-      id: (issuedDiplomas.length + 1).toString(),
-      studentName: "New Student",
-      degreeProgram: "Web Development",
-      degreeType: "BSc",
-      graduationDate: date ? format(date, "yyyy-MM-dd") : "2023-06-01",
-      walletAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
-      status: "pending",
-      txHash: "",
-    };
-    setIssuedDiplomas([newDiploma, ...issuedDiplomas]);
-  };
-
   return (
     <div className="container py-6 md:py-10">
       <div className="mb-6">
@@ -114,95 +73,7 @@ export default function IssuerDashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="studentName">Student Name</Label>
-                    <Input id="studentName" placeholder="Full name" required />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="walletAddress">Wallet Address</Label>
-                    <Input id="walletAddress" placeholder="0x..." required />
-                  </div>
-                </div>
-
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="degreeProgram">Degree Program</Label>
-                    <Input
-                      id="degreeProgram"
-                      placeholder="e.g. Computer Science"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="degreeType">Degree Type</Label>
-                    <Select>
-                      <SelectTrigger id="degreeType">
-                        <SelectValue placeholder="Select degree type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="bsc">BSc</SelectItem>
-                        <SelectItem value="msc">MSc</SelectItem>
-                        <SelectItem value="phd">PhD</SelectItem>
-                        <SelectItem value="ba">BA</SelectItem>
-                        <SelectItem value="ma">MA</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="graduationDate">Graduation Date</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !date && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {date ? format(date, "PPP") : "Select date"}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={date}
-                          onSelect={setDate}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="certificateImage">
-                      Certificate Image (Optional)
-                    </Label>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        id="certificateImage"
-                        type="file"
-                        className="cursor-pointer"
-                      />
-                      <Button type="button" size="sm" variant="outline">
-                        <FileUp className="h-4 w-4" />
-                      </Button>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Image will be stored on IPFS
-                    </p>
-                  </div>
-                </div>
-
-                <Button type="submit" className="w-full md:w-auto">
-                  <GraduationCap className="mr-2 h-4 w-4" />
-                  Mint Diploma
-                </Button>
-              </form>
+              <IssueDiplomaForm />
             </CardContent>
           </Card>
         </TabsContent>
